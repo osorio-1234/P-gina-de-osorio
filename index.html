@@ -1,52 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Página Simple</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 100px;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bienvenido</title>
+  <style>
+    html,body{
+      height:100%;
+      margin:0;
+      background:#000; /* fondo negro */
+      font-family: Arial, Helvetica, sans-serif;
+      color:#fff;
+    }
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px;
+      box-sizing:border-box;
+    }
+    .content{
+      text-align:center;
+      max-width:900px;
+    }
+    h1{
+      margin:0 0 20px 0;
+      font-size:1.6rem;
+      font-weight:700;
+      color:#fff;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+    }
 
-        h1 {
-            font-size: 25px;
-        }
+    .btns{
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      margin-top:18px;
+      flex-wrap:wrap;
+    }
 
-        .btn {
-            background-color: red;
-            color: white;
-            padding: 15px 25px;
-            border: none;
-            margin: 10px;
-            font-size: 18px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
+    .btn{
+      background:#e31717; /* rojo */
+      border:0;
+      padding:10px 18px;
+      border-radius:8px;
+      color:#fff;
+      cursor:pointer;
+      font-size:0.95rem;
+      box-shadow:0 6px 0 #8b0e0e; /* sombra tipo "botón levantado" */
+      transition:transform .08s ease, box-shadow .08s ease;
+    }
+    .btn:active{
+      transform:translateY(4px);
+      box-shadow:0 2px 0 #8b0e0e;
+    }
 
-        .btn:hover {
-            opacity: 0.8;
-        }
-    </style>
-
-    <script>
-        function mensaje1() {
-            alert("Te amo mi princesa hermosa <3");
-        }
-
-        function mensaje2() {
-            alert("Te adoro, eres lo mejor que me ha pasado y quiero tener un lindo futuro contigo");
-        }
-    </script>
+    /* estilo para dispositivos pequeños */
+    @media (max-width:420px){
+      h1{ font-size:1.2rem; }
+      .btn{ padding:9px 14px; font-size:0.9rem; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Bienvenido a esta página, aquí podrás encontrar dos botones</h1>
+  <div class="wrap">
+    <div class="content" role="main">
+      <h1>Bienvenido a esta página, aquí podrás encontrar dos botones</h1>
 
-    <button class="btn" onclick="mensaje1()">Botón 1</button>
-    <button class="btn" onclick="mensaje2()">Botón 2</button>
+      <div class="btns">
+        <button class="btn" id="boton1" type="button">Botón 1</button>
+        <button class="btn" id="boton2" type="button">Botón 2</button>
+      </div>
+    </div>
+  </div>
 
+  <script>
+    // Aquí van las funciones de los botones (dentro de <script> para que no aparezcan como texto)
+    document.getElementById('boton1').addEventListener('click', function(){
+      alert('Te amo mi princesa hermosa <3');
+    });
+
+    document.getElementById('boton2').addEventListener('click', function(){
+      alert('Te adoro, eres lo mejor que me ha pasado y quiero tener un lindo futuro contigo');
+    });
+  </script>
 </body>
 </html>
