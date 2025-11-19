@@ -1,42 +1,50 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Mi página web</title>
-  </head>
-  <body>
-    <h1>¡Hola! Esta es mi primera página web</h1>
-    <p>Hecha desde Termux </p>
-  </body>
-</html>
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Mi página con estilo</title>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Página Simple</title>
     <style>
-      body {
-        background-color: #222;   /* Fondo oscuro */
-        color: white;             /* Texto blanco */
-        font-family: Arial;
-        text-align: center;
-        padding-top: 50px;
-      }
-      h1 {
-        color: #4CAF50;           /* Verde bonito */
-      }
-      button {
-        background: #4CAF50;
-        border: none;
-        padding: 10px 20px;
-        font-size: 18px;
-        color: white;
-        border-radius: 5px;
-      }
-    </style>
-  </head>
-  <body>
-      <button onclick="alert('te amo mi princesa')">Haz clic aquí</button>
-     <img src="foto.png" width="300">
-    <h1>Mi página web con colores </h1>
-    <p>Esta página ya tiene estilos.</p>
-  </body>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        h1 {
+            font-size: 25px;
+        }
+
+        .btn {
+            background-color: red;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            margin: 10px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+    </style>      function mensaje1() {
+            alert("Te amo mi princesa hermosa <3");
+        }
+
+        function mensaje2() {
+            alert("Te adoro, eres lo mejor que me ha pasado y quiero tener un lindo futuro contigo");
+        }
+    </script>
+</head
+</head>
+<body>
+    <h1>Bienvenido a esta página, aquí podrás encontrar dos botones</h1>
+
+    <button class="btn">Botón 1</button>
+    <button class="btn">Botón 2</button>
+
+</body>
 </html>
