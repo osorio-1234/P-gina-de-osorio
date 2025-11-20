@@ -9,9 +9,10 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: #fff0f6; /* rosadito pastel */
+      background: url("https://raw.githubusercontent.com/osorio-1234/P-gina-de-osorio/master/IMG-20251120-WA0083.jpg") no-repeat center center fixed;
+      background-size: cover;
       font-family: "Arial", sans-serif;
-      color: #d63384; /* rosa fuerte */
+      color: #d63384;
       overflow-x: hidden;
     }
 
@@ -36,10 +37,14 @@
       }
     }
 
-    /* texto principal */
+    /* contenedor */
     .container {
       text-align: center;
       padding: 80px 20px;
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(5px);
+      border-radius: 20px;
+      margin: 40px;
     }
 
     h1 {
@@ -72,55 +77,37 @@
       box-shadow: 0 4px 0 #cc397f;
     }
 
-    /* CARTAS ANIMADAS */
-    .carta {
-      display: none;
+    /* ventana animada */
+    .popup {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-      animation: fadeIn 0.4s;
-    }
-
-    .contenido-carta {
-      background: #ffffff;
-      color: #d63384;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.6);
+      background: #ffe6f2;
       padding: 25px;
-      width: 80%;
-      max-width: 350px;
       border-radius: 20px;
       text-align: center;
-      box-shadow: 0 0 15px rgba(255,100,200,0.5);
-      animation: zoomIn 0.4s;
+      box-shadow: 0 0 20px rgba(255, 100, 150, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.3s ease;
+      font-size: 20px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
+    .popup.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: auto;
     }
 
-    @keyframes zoomIn {
-      from { transform: scale(0.5); }
-      to   { transform: scale(1); }
-    }
-
-    .cerrar {
+    .popup button {
       margin-top: 15px;
-      background: #ff4da6;
-      color: white;
       padding: 10px 20px;
       border: none;
+      background: #ff4da6;
       border-radius: 10px;
+      color: white;
       cursor: pointer;
-      box-shadow: 0 4px 0 #cc397f;
-      font-size: 16px;
-    }
-
-    .cerrar:active {
-      transform: translateY(3px);
-      box-shadow: 0 2px 0 #cc397f;
     }
   </style>
 </head>
@@ -150,48 +137,32 @@
     <button class="btn" id="boton2">💘 Botón 2 💘</button>
   </div>
 
-  <!-- CARTA 1 -->
-  <div id="carta1" class="carta">
-    <div class="contenido-carta">
-      <h2>💌 Para mi princesa</h2>
-      <p style="font-size:18px;">
-        Te amo mi princesa hermosa &lt;3  
-        Eres la luz más bonita en mis días 💗✨
-      </p>
-      <button class="cerrar" onclick="cerrarCarta('carta1')">Cerrar</button>
-    </div>
-  </div>
-
-  <!-- CARTA 2 -->
-  <div id="carta2" class="carta">
-    <div class="contenido-carta">
-      <h2>💖 Mensaje Especial</h2>
-      <p style="font-size:18px;">
-        Te adoro, eres lo mejor que me ha pasado  
-        y quiero tener un futuro precioso contigo 💕🌈✨
-      </p>
-      <button class="cerrar" onclick="cerrarCarta('carta2')">Cerrar</button>
-    </div>
+  <!-- POPUP CUTE -->
+  <div id="popup" class="popup">
+    <p id="popupText"></p>
+    <button onclick="cerrarPopup()">Cerrar 💗</button>
   </div>
 
   <script>
-    function mostrarCarta(id) {
-      document.getElementById(id).style.display = "flex";
+    function mostrarPopup(texto) {
+      const popup = document.getElementById("popup");
+      document.getElementById("popupText").innerHTML = texto;
+      popup.classList.add("show");
     }
 
-    function cerrarCarta(id) {
-      document.getElementById(id).style.display = "none";
+    function cerrarPopup() {
+      const popup = document.getElementById("popup");
+      popup.classList.remove("show");
     }
 
     document.getElementById('boton1').addEventListener('click', () => {
-      mostrarCarta('carta1');
+      mostrarPopup("Te amo mi princesa hermosa <3 💗✨💞");
     });
 
     document.getElementById('boton2').addEventListener('click', () => {
-      mostrarCarta('carta2');
+      mostrarPopup("Te adoro, eres lo mejor que me ha pasado y quiero un futuro hermoso contigo 💘🌸");
     });
   </script>
 
 </body>
 </html>
-
