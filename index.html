@@ -1,10 +1,11 @@
 <!doctype html>
-
 <html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Para mi Princesa 💖</title>  <style>
+  <title>Para mi Princesa 💖</title>
+
+  <style>
     html, body {
       margin: 0;
       padding: 0;
@@ -80,9 +81,23 @@
       transform: translate(-50%, -50%) scale(1);
       pointer-events: auto;
     }
-  </style></head><body>  <!-- 🔊 AUDIO OCULTO (corregido con type="audio/opus" y RAW correcto) -->  <audio id="musica" autoplay loop style="display:none;">
-    <source src="https://raw.githubusercontent.com/osorio-1234/P-gina-de-osorio/master/banana-pie.opus" type="audio/opus">
-  </audio>  <!-- corazones -->  <script>
+  </style>
+</head>
+
+<body>
+
+  <!-- 🔊 AUDIO DESDE YOUTUBE (INVISIBLE + AUTOPLAY) -->
+  <iframe 
+    width="0" 
+    height="0" 
+    src="https://www.youtube.com/embed/cZmPhCJzWgk?autoplay=1&loop=1&playlist=cZmPhCJzWgk"
+    frameborder="0"
+    allow="autoplay"
+    style="position:absolute; left:-9999px;"
+  ></iframe>
+
+  <!-- corazones -->
+  <script>
     function hearts() {
       let heart = document.createElement("div");
       heart.classList.add("heart");
@@ -93,14 +108,20 @@
       setTimeout(() => heart.remove(), 5000);
     }
     setInterval(hearts, 600);
-  </script>  <div class="container">
+  </script>
+
+  <div class="container">
     <h1>Bienvenida mi princesa, aquí tienes dos botoncitos especiales 💗</h1>
     <button class="btn" id="boton1">💞 Botón 1 💞</button>
     <button class="btn" id="boton2">💘 Botón 2 💘</button>
-  </div>  <div id="popup" class="popup">
+  </div>
+
+  <div id="popup" class="popup">
     <p id="popupText"></p>
     <button onclick="cerrarPopup()">Cerrar 💗</button>
-  </div>  <script>
+  </div>
+
+  <script>
     function mostrarPopup(texto) {
       const popup = document.getElementById("popup");
       document.getElementById("popupText").innerHTML = texto;
@@ -118,11 +139,7 @@
     document.getElementById('boton2').addEventListener('click', () => {
       mostrarPopup("Te adoro, eres lo mejor que me ha pasado y quiero un futuro hermoso contigo 💘🌸");
     });
+  </script>
 
-    // Reproducción en móviles (autoplay fix)
-    document.addEventListener("click", () => {
-      const audio = document.getElementById("musica");
-      if (audio.paused) audio.play().catch(()=>{});
-    }, { once: true });
-  </script></body>
+</body>
 </html>
