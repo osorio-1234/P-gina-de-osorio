@@ -86,17 +86,53 @@
 
 <body>
 
-  <!-- 🔊 AUDIO DESDE YOUTUBE (INVISIBLE + AUTOPLAY) -->
+  <!-- 🎵 YOUTUBE PLAYER INVISIBLE -->
   <iframe 
-    width="0" 
-    height="0" 
-    src="https://www.youtube.com/embed/cZmPhCJzWgk?autoplay=1&loop=1&playlist=cZmPhCJzWgk"
+    id="ytplayer"
+    width="0" height="0"
+    src="https://www.youtube.com/embed/cZmPhCJzWgk?enablejsapi=1&autoplay=0&loop=1&playlist=cZmPhCJzWgk"
     frameborder="0"
     allow="autoplay"
     style="position:absolute; left:-9999px;"
   ></iframe>
 
-  <!-- corazones -->
+  <!-- 🔇 AUDIO SILENCIOSO PARA DESBLOQUEAR AUDIO EN MÓVIL -->
+  <audio id="unlockAudio" preload="auto">
+    <source src="data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCAAAAAA==" type="audio/mp3">
+  </audio>
+
+  <script>
+    let ytReady = false;
+
+    // Cargar API de YouTube
+    let tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.body.appendChild(tag);
+
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('ytplayer', {
+        events: {
+          'onReady': () => { ytReady = true; }
+        }
+      });
+    }
+
+    // 🔥 Primer toque en la pantalla:
+    // Reproduce audio silencioso y luego la canción real
+    function unlock() {
+      const silent = document.getElementById("unlockAudio");
+      silent.play().then(() => {
+        if (ytReady) player.playVideo();
+      }).catch(()=>{});
+    }
+
+    // Se ejecuta al primer toque o clic
+    document.addEventListener("touchstart", unlock, { once: true });
+    document.addEventListener("click", unlock, { once: true });
+  </script>
+
+  <!-- ❤️ Restante de tu página -->
   <script>
     function hearts() {
       let heart = document.createElement("div");
