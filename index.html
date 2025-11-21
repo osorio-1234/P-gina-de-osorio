@@ -60,80 +60,81 @@
     .btn:hover { background: #ff66b3; transform: scale(1.06); }
     .btn:active { transform: translateY(4px); box-shadow: 0 4px 0 #cc397f; }
 
-    .popup {
+    /* 🦋 Mariposa morada */
+    .mariposa {
       position: fixed;
-      top: 50%;
+      bottom: -150px;
       left: 50%;
-      transform: translate(-50%, -50%) scale(0.6);
-      background: #ffe6f2;
-      padding: 25px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(255, 100, 150, 0.5);
+      transform: translateX(-50%) scale(0.8);
       opacity: 0;
       pointer-events: none;
-      transition: 0.3s ease;
-      font-size: 20px;
+      transition: opacity 0.5s ease;
     }
 
-    .popup.show {
+    .mariposa.show {
+      animation: vuelo 8s linear forwards;
       opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      pointer-events: auto;
+    }
+
+    .mariposa-img {
+      width: 180px;
+      animation: alas 1.1s infinite ease-in-out;
+      filter: drop-shadow(0 0 14px rgba(180, 80, 255, 0.9));
+    }
+
+    .mensaje-mariposa {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      color: #d390ff;
+      text-shadow: 0 0 6px white;
+      font-weight: bold;
+      width: 220px;
+      text-align: center;
+    }
+
+    @keyframes vuelo {
+      0% { transform: translate(-50%, 0) scale(0.8); }
+      50% { transform: translate(-30%, -300px) scale(1); }
+      100% { transform: translate(40%, -700px) scale(1.2); }
+    }
+
+    @keyframes alas {
+      0% { transform: rotate(4deg); }
+      50% { transform: rotate(-4deg); }
+      100% { transform: rotate(4deg); }
+    }
+
+    /* Invisible YouTube player */
+    #ytAudio {
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      position: absolute;
+      left: -9999px;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- 🎵 YOUTUBE PLAYER INVISIBLE -->
+  <!-- 💜 Mariposa que trae el mensaje -->
+  <div id="mariposa" class="mariposa">
+    <img src="https://i.imgur.com/GMI0SQ0.png" class="mariposa-img">
+    <div class="mensaje-mariposa" id="textoMariposa"></div>
+  </div>
+
+  <!-- Reproductor invisible de YouTube -->
   <iframe 
-    id="ytplayer"
-    width="0" height="0"
-    src="https://www.youtube.com/embed/cZmPhCJzWgk?enablejsapi=1&autoplay=0&loop=1&playlist=cZmPhCJzWgk"
-    frameborder="0"
+    id="ytAudio"
+    src="https://www.youtube.com/embed/cZmPhCJzWgk?autoplay=1&loop=1&playlist=cZmPhCJzWgk&controls=0&mute=0"
     allow="autoplay"
-    style="position:absolute; left:-9999px;"
   ></iframe>
 
-  <!-- 🔇 AUDIO SILENCIOSO PARA DESBLOQUEAR AUDIO EN MÓVIL -->
-  <audio id="unlockAudio" preload="auto">
-    <source src="data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCAAAAAA==" type="audio/mp3">
-  </audio>
-
   <script>
-    let ytReady = false;
-
-    // Cargar API de YouTube
-    let tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    document.body.appendChild(tag);
-
-    let player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('ytplayer', {
-        events: {
-          'onReady': () => { ytReady = true; }
-        }
-      });
-    }
-
-    // 🔥 Primer toque en la pantalla:
-    // Reproduce audio silencioso y luego la canción real
-    function unlock() {
-      const silent = document.getElementById("unlockAudio");
-      silent.play().then(() => {
-        if (ytReady) player.playVideo();
-      }).catch(()=>{});
-    }
-
-    // Se ejecuta al primer toque o clic
-    document.addEventListener("touchstart", unlock, { once: true });
-    document.addEventListener("click", unlock, { once: true });
-  </script>
-
-  <!-- ❤️ Restante de tu página -->
-  <script>
+    // ❤️ Corazones
     function hearts() {
       let heart = document.createElement("div");
       heart.classList.add("heart");
@@ -144,6 +145,28 @@
       setTimeout(() => heart.remove(), 5000);
     }
     setInterval(hearts, 600);
+
+    // 🦋 Mostrar mariposa
+    function mostrarMariposa(texto) {
+      const mariposa = document.getElementById("mariposa");
+      const textoMariposa = document.getElementById("textoMariposa");
+
+      textoMariposa.innerHTML = texto;
+      mariposa.classList.add("show");
+
+      setTimeout(() => {
+        mariposa.classList.remove("show");
+      }, 8000);
+    }
+
+    // Botones
+    document.getElementById('boton1').addEventListener('click', () => {
+      mostrarMariposa("Te amo mi princesa 💜✨");
+    });
+
+    document.getElementById('boton2').addEventListener('click', () => {
+      mostrarMariposa("Eres mi razón de sonreír 💜🌸");
+    });
   </script>
 
   <div class="container">
@@ -151,31 +174,6 @@
     <button class="btn" id="boton1">💞 Botón 1 💞</button>
     <button class="btn" id="boton2">💘 Botón 2 💘</button>
   </div>
-
-  <div id="popup" class="popup">
-    <p id="popupText"></p>
-    <button onclick="cerrarPopup()">Cerrar 💗</button>
-  </div>
-
-  <script>
-    function mostrarPopup(texto) {
-      const popup = document.getElementById("popup");
-      document.getElementById("popupText").innerHTML = texto;
-      popup.classList.add("show");
-    }
-
-    function cerrarPopup() {
-      document.getElementById("popup").classList.remove("show");
-    }
-
-    document.getElementById('boton1').addEventListener('click', () => {
-      mostrarPopup("Te amo mi princesa hermosa <3 💗✨💞");
-    });
-
-    document.getElementById('boton2').addEventListener('click', () => {
-      mostrarPopup("Te adoro, eres lo mejor que me ha pasado y quiero un futuro hermoso contigo 💘🌸");
-    });
-  </script>
 
 </body>
 </html>
