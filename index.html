@@ -16,6 +16,22 @@
       overflow-x: hidden;
     }
 
+    /* BOTÓN EXTRA DEL SEGUNDO CÓDIGO */
+    .boton {
+        background: white;
+        color: purple;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        border: none;
+        font-size: 18px;
+        margin-top: 20px;
+    }
+
+    .boton:hover {
+        background: #ddd;
+    }
+
     .heart {
       position: fixed;
       bottom: -20px;
@@ -82,7 +98,7 @@
       pointer-events: auto;
     }
 
-    /* 🦋 Estilo de las mariposas */
+    /* 🦋 Estilo de mariposas */
     .mariposa {
       position: fixed;
       width: 50px;
@@ -118,8 +134,13 @@
 
   <div class="container">
     <h1>Bienvenida mi princesa, aquí tienes dos botoncitos especiales 💗</h1>
+
     <button class="btn" id="boton1">💞 Botón 1 💞</button>
     <button class="btn" id="boton2">💘 Botón 2 💘</button>
+
+    <!-- BOTÓN EXTRA DEL OTRO CÓDIGO -->
+    <button class="boton" onclick="mensaje()">Presióname</button>
+
   </div>
 
   <div id="popup" class="popup">
@@ -128,6 +149,7 @@
   </div>
 
   <script>
+    /* Popup */
     function mostrarPopup(texto) {
       const popup = document.getElementById("popup");
       document.getElementById("popupText").innerHTML = texto;
@@ -145,6 +167,11 @@
     document.getElementById('boton2').addEventListener('click', () => {
       mostrarPopup("Te adoro, eres lo mejor que me ha pasado y quiero un futuro hermoso contigo 💘🌸");
     });
+
+    /* FUNCIÓN DEL OTRO CÓDIGO */
+    function mensaje() {
+        alert("¡Hola desde JavaScript!");
+    }
   </script>
 
   <!-- 🦋 MARIPOSAS ANIMADAS -->
@@ -182,4 +209,3 @@
 
 </body>
 </html>
-
