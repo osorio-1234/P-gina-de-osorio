@@ -60,82 +60,49 @@
     .btn:hover { background: #ff66b3; transform: scale(1.06); }
     .btn:active { transform: translateY(4px); box-shadow: 0 4px 0 #cc397f; }
 
-    /* MARIPOSA ANIMADA */
-    .mariposa {
+    .popup {
       position: fixed;
+      top: 50%;
       left: 50%;
-      top: 70%;
-      transform: translateX(-50%);
+      transform: translate(-50%, -50%) scale(0.6);
+      background: #ffe6f2;
+      padding: 25px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255, 100, 150, 0.5);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s;
-    }
-    .mariposa.show {
-      animation: volar 8s linear forwards;
-      opacity: 1;
-    }
-    .mariposa-img {
-      width: 120px;
-      animation: aleteo 0.8s infinite alternate;
-    }
-    .mensaje-mariposa {
-      margin-top: -20px;
-      color: #b36bff;
+      transition: 0.3s ease;
       font-size: 20px;
-      font-weight: bold;
-      text-shadow: 0 0 6px #d8b4ff;
     }
 
-    @keyframes aleteo {
-      from { transform: translateY(0) scale(1); }
-      to   { transform: translateY(-6px) scale(1.05); }
+    .popup.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: auto;
+    }
+
+    /* 🦋 Estilo de las mariposas */
+    .mariposa {
+      position: fixed;
+      width: 50px;
+      height: 50px;
+      pointer-events: none;
+      animation: volar 6s linear infinite;
+      z-index: 9999;
     }
 
     @keyframes volar {
-      0% { transform: translate(-50%, 0); }
-      100% { transform: translate(-50%, -120vh); }
-    }
-
-    /* YouTube invisible */
-    #player {
-      width: 0;
-      height: 0;
-      opacity: 0;
-      pointer-events: none;
-      position: absolute;
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      50% { transform: translateY(-80px) rotate(20deg); opacity: 0.9; }
+      100% { transform: translateY(0) rotate(-20deg); opacity: 1; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ❤️ YouTube invisible -->
-  <div id="player"></div>
-  <script>
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    document.body.appendChild(tag);
-
-    var player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        height: '0',
-        width: '0',
-        videoId: 'cZmPhCJzWgk',
-        playerVars: {
-          autoplay: 1,
-          controls: 0,
-          loop: 1,
-          playlist: 'cZmPhCJzWgk'
-        },
-        events: {
-          onReady: (event) => event.target.playVideo()
-        }
-      });
-    }
-  </script>
-
-  <!-- corazones flotantes -->
+  <!-- corazones subiendo -->
   <script>
     function hearts() {
       let heart = document.createElement("div");
@@ -155,33 +122,64 @@
     <button class="btn" id="boton2">💘 Botón 2 💘</button>
   </div>
 
-  <!-- MARIPOSA -->
-  <div id="mariposa" class="mariposa">
-    <img src="https://i.imgur.com/GMI0SQ0.png" class="mariposa-img">
-    <div class="mensaje-mariposa" id="textoMariposa"></div>
+  <div id="popup" class="popup">
+    <p id="popupText"></p>
+    <button onclick="cerrarPopup()">Cerrar 💗</button>
   </div>
 
   <script>
-    function mostrarMariposa(texto) {
-      const mariposa = document.getElementById("mariposa");
-      const textoM = document.getElementById("textoMariposa");
+    function mostrarPopup(texto) {
+      const popup = document.getElementById("popup");
+      document.getElementById("popupText").innerHTML = texto;
+      popup.classList.add("show");
+    }
 
-      textoM.innerHTML = texto;
-      mariposa.classList.add("show");
-
-      setTimeout(() => {
-        mariposa.classList.remove("show");
-      }, 8000);
+    function cerrarPopup() {
+      document.getElementById("popup").classList.remove("show");
     }
 
     document.getElementById('boton1').addEventListener('click', () => {
-      mostrarMariposa("Te amo mi princesa hermosa <3 💜✨🦋");
+      mostrarPopup("Te amo mi princesa hermosa <3 💗✨💞");
     });
 
     document.getElementById('boton2').addEventListener('click', () => {
-      mostrarMariposa("Eres lo mejor que me ha pasado, mi amorcito 💜🌸🦋");
+      mostrarPopup("Te adoro, eres lo mejor que me ha pasado y quiero un futuro hermoso contigo 💘🌸");
     });
+  </script>
+
+  <!-- 🦋 MARIPOSAS ANIMADAS -->
+  <script>
+    function crearMariposa(x, y) {
+        const img = document.createElement("img");
+        img.src = "https://i.imgur.com/2eQK7bY.png"; 
+        img.className = "mariposa";
+
+        img.style.left = x + "px";
+        img.style.top = y + "px";
+
+        document.body.appendChild(img);
+
+        setTimeout(() => {
+            img.remove();
+        }, 6000);
+    }
+
+    document.addEventListener("click", (e) => {
+        crearMariposa(e.clientX, e.clientY);
+    });
+
+    document.addEventListener("touchstart", (e) => {
+        const t = e.touches[0];
+        crearMariposa(t.clientX, t.clientY);
+    });
+
+    setInterval(() => {
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        crearMariposa(x, y);
+    }, 3000);
   </script>
 
 </body>
 </html>
+
